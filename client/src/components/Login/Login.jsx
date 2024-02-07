@@ -12,12 +12,18 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Text,
+  Link,
+  Flex,
+  HStack,
 } from '@chakra-ui/react';
+import { FaFacebook, FaTwitter, FaGoogle } from 'react-icons/fa';
 
 const LoginPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false); // State for Remember Me checkbox
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -90,6 +96,25 @@ const LoginPage = () => {
               disabled={isLoading}
             />
           </FormControl>
+          <Flex justifyContent="space-between" alignItems="center" mt={4}>
+            <FormControl display="flex" alignItems="center" mr={4}>
+              <Input
+                type="checkbox"
+                id="rememberMe"
+                onChange={() => setRememberMe(!rememberMe)}
+                colorScheme="green"
+                size="sm"
+              />
+              <FormLabel htmlFor="rememberMe" ml={2} mb={0} color="white">
+                Remember Me
+              </FormLabel>
+            </FormControl>
+            <Text color="white">
+              <Link href="#" color="green.300">
+                Forgot Password?
+              </Link>
+            </Text>
+          </Flex>
           <Button colorScheme="green" mt={6} w="100%" type="submit" isLoading={isLoading}>
             Login
           </Button>
@@ -98,6 +123,26 @@ const LoginPage = () => {
               {error}
             </Box>
           )}
+          <Text mt={4} color="white">
+            New on Platform?{' '}
+            <Link href="#" color="green.300">
+              Create an Account
+            </Link>
+          </Text>
+          <Text mt={4} color="white">
+            Sign in with:
+          </Text>
+          <HStack spacing={4} justify="center" mt={4}>
+            <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+              Facebook
+            </Button>
+            <Button colorScheme="twitter" leftIcon={<FaTwitter />}>
+              Twitter
+            </Button>
+            <Button colorScheme="red" leftIcon={<FaGoogle />}>
+              Google
+            </Button>
+          </HStack>
           {/* AlertDialog */}
           <AlertDialog isOpen={isOpen} leastDestructiveRef={undefined}>
             <AlertDialogOverlay>

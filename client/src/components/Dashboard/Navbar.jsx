@@ -12,8 +12,10 @@ import {
   Badge,
   useColorMode,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, BellIcon, MoonIcon, SunIcon, AddIcon } from "@chakra-ui/icons";
+import { FaLanguage } from "react-icons/fa";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -43,7 +45,18 @@ const Navbar = () => {
       isClosable: true,
     });
   };
-  
+
+  const handleLanguageChange = (language) => {
+    // Implement language change logic here
+    toast({
+      title: "Language Changed",
+      description: `Switched to ${language}`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Box
       py={2}
@@ -53,25 +66,25 @@ const Navbar = () => {
       zIndex={100}
     >
       <Container maxW="container.lg">
-        <Flex justify="space-between" align="center">
-          <Box w="80%">
-            <Input
-              type="text"
-              placeholder="Search..."
-              size="sm"
-              borderRadius="full"
-              bg={colorMode === "light" ? "white" : "gray.800"}
-              px={4}
-              py={1}
-              color={colorMode === "light" ? "gray.800" : "white"}
-              _placeholder={{
-                color: colorMode === "light" ? "gray.500" : "gray.300",
-              }}
-              _focus={{ outline: "none" }}
-            />
-          </Box>
+        <Flex justify="flex-end" align="center">
           <Box>
             <Flex align="center">
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  icon={<AddIcon boxSize={6} />}
+                  variant="unstyled"
+                />
+                <MenuList>
+                  <MenuItem onClick={() => handleLanguageChange('English')}>
+                    <FaLanguage style={{ marginRight: '0.5em' }} /> English
+                  </MenuItem>
+                  <MenuItem onClick={() => handleLanguageChange('Spanish')}>
+                    <FaLanguage style={{ marginRight: '0.5em' }} /> Spanish
+                  </MenuItem>
+                  {/* Add more language options as needed */}
+                </MenuList>
+              </Menu>
               <IconButton
                 aria-label="Toggle Theme"
                 icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
@@ -97,7 +110,6 @@ const Navbar = () => {
                 />
                 <MenuList>
                   <MenuItem>Profile</MenuItem>
-                  <MenuItem>Settings</MenuItem>
                   <MenuItem onClick={handleUploadPhoto}>
                     Upload Photo
                   </MenuItem>
