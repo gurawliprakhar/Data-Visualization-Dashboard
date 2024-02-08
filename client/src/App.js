@@ -1,4 +1,5 @@
 import React from "react";
+import jsonData from './data/jsondata.json'; // Corrected import path
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Dashboard/Main";
 import Login from "./components/Login/Login";
